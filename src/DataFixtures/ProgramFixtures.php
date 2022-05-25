@@ -6,30 +6,25 @@ use App\Entity\Program;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
+use Faker\Factory;
 
 class ProgramFixtures extends Fixture implements DependentFixtureInterface
 {
 
-    public const TITLES = [
-        'Walking dead',
-        'Stranger Things',
-        'Dark',
-        'Bander Snatch',
-        'Hunting Hill',
-
-    ];
 
     public function load(ObjectManager $manager)
     
     {
-        foreach (self::TITLES as $programTitle) {
-           
+        $faker = Factory::create();
+        
+        for($i = 0; $i < 50; $i++) {
         $program = new Program();
-        $program->setTitle($programTitle);
-        $program->setSynopsis('Une série qu elle est trop bien');
-        $program->setCategory($this->getReference('category_Action'));
+        $program->setTitle('Title' .$faker->numberBetween(0,5) );
+        $program->setSynopsis($faker->paragraphs(3, true));
+        $program->setCategory($this->getReference('category_'.$i));
+        $this->addReference('program_'.$i , $program);
         $manager->persist($program);
-    }
+        }
         $manager->flush();
        
     }
