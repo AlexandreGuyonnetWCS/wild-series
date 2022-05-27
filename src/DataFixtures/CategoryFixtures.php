@@ -12,10 +12,10 @@ class CategoryFixtures extends Fixture
     
     public function load(ObjectManager $manager)
     {
-        $faker = Factory::create();
-        for($i = 0; $i < 50; $i++) {
+        $faker = Factory::create("fr_FR");
+        for($i = 0; $i < 5; $i++) {
             $category = new Category();
-            $category->setName($faker->name());
+            $category->setName($faker->word());
             $manager->persist($category);
             $this->addReference('category_' . $i, $category);
         }

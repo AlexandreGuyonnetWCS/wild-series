@@ -15,13 +15,14 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager)
     
     {
-        $faker = Factory::create();
+        $faker = Factory::create("fr_FR");
         
-        for($i = 0; $i < 50; $i++) {
+        for($i = 1; $i < 50; $i++) {
         $program = new Program();
-        $program->setTitle('Title' .$faker->numberBetween(0,5) );
-        $program->setSynopsis($faker->paragraphs(3, true));
-        $program->setCategory($this->getReference('category_'.$i));
+        $program->setPoster('https://picsum.photos/id/3/200/300');
+        $program->setTitle('Title' .$faker->realText($maxNbChars = 10, $indexSize = 2));
+        $program->setSynopsis($faker->realText($maxNbChars = 20, $indexSize = 2));
+        $program->setCategory($this->getReference('category_'. rand(0,4)));
         $this->addReference('program_'.$i , $program);
         $manager->persist($program);
         }
@@ -35,6 +36,5 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
           CategoryFixtures::class,
         ];
     }
-
 
 }
