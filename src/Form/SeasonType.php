@@ -2,23 +2,23 @@
 
 namespace App\Form;
 
-use App\Entity\Program;
+use App\Entity\Season;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ProgramType extends AbstractType
+class SeasonType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title')
-            ->add('synopsis')
-            ->add('poster')
-            ->add('category',null, [
-                'label' => 'Category',
-                'choice_label' => 'name',
-                'placeholder' => 'Choose a category',
+            ->add('number')
+            ->add('year')
+            ->add('description')
+            ->add('program' ,null, [
+                'label' => 'Program',
+                'choice_label' => 'title',
+                'placeholder' => 'Choose a program',
             ])
         ;
     }
@@ -26,7 +26,7 @@ class ProgramType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Program::class,
+            'data_class' => Season::class,
         ]);
     }
 }

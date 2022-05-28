@@ -4,8 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Program;
 use App\Form\ProgramType;
-use App\Repository\CategoryRepository;
 use App\Repository\ProgramRepository;
+use App\Repository\SeasonRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,15 +17,14 @@ class ProgramController extends AbstractController
    
 
     #[Route('/program', name: 'program_index')]
-    public function index(ProgramRepository $programRepository, CategoryRepository $categoryRepository): Response
+    public function index(ProgramRepository $programRepository): Response
     {
         $programs = $programRepository->findAll();
-        $category = $categoryRepository->findAll();
+    
 
         return $this->render(
             'program/index.html.twig',
             ['programs' => $programs,
-            'category' => $category,
             ]
         );
     }
@@ -51,9 +50,10 @@ class ProgramController extends AbstractController
     }
 
     #[Route('/program/{id}', methods: ['GET'], name: 'program_show', requirements: ['id' => '\d+'])]
-    public function show(int $id, ProgramRepository $programRepository): Response
+    public function show(int $id, ProgramRepository $programRepository , SeasonRepository $seasonRepository): Response
     {
         $program = $programRepository->findOneBy(['id' => $id]);
+        $seasons = $seasonRepository->findBy(['program' => $program]);
         // same as $program = $programRepository->find($id);
 
         if (!$program) {
@@ -63,6 +63,7 @@ class ProgramController extends AbstractController
         }
         return $this->render('/program/show.html.twig', [
             'program' => $program,
+            'seasons' => $seasons,
         ]);
     }
 }

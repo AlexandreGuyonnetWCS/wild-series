@@ -22,7 +22,7 @@ class Season
     #[ORM\Column(type: 'text')]
     private $description;
 
-    #[ORM\ManyToOne(targetEntity: program::class, inversedBy: 'seasons')]
+    #[ORM\ManyToOne(targetEntity: Program::class, inversedBy: 'seasons')]
     #[ORM\JoinColumn(nullable: true)]
     private $program;
 
@@ -67,12 +67,12 @@ class Season
         return $this;
     }
 
-    public function getProgram(): ?program
+    public function getProgram(): ?Program
     {
         return $this->program;
     }
 
-    public function setProgram(?program $program): self
+    public function setProgram(?Program $program): self
     {
         $this->program = $program;
 

@@ -1,26 +1,50 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Catégories{% endblock %}
+{% block title %}Catégories
+{% endblock %}
 
 {% block body %}
-    <h1>Toutes les catégories </h1>
-    {% for category in categories %}
-        <div>
-            <h2>{{ loop.index }} - Catégorie : {{ category.name }}</h2>
-            {# Lien vers la fiche de la catégorie : #}
-            <a href="{{ path("category_show", { categoryName : category.name }) }}">Voir la catégorie</a>
-        </div>
-    {% else %}
-        Aucune catégorie trouvée.
-    {% endfor %}
+<div class="container_fluid m-5">
+<div class="row">
+	<h1 class="text-center">Toutes les catégories
+	</h1>
+    </div>
+    </div>
+	<div class="container">
+		<div class="row">
+			{% for category in categories %}
+				<div class="card col-3 mb-3 ms-4 g-0" style=" width:18rem;">
+					<img src="https://picsum.photos/id/3/200/200" class="card-img-top" alt="...">
+					<div class="card-body">
+						<h5 class="card-title text-center">
+							{{ category.name }}</h5>
 
-    <div>
-		<a href="{{ path('category_new') }}">
-			Créer une catégorie
-		</a>
+						<a href="{{ path("category_show", { categoryName : category.name }) }}" class="btn btn-primary d-flex justify-content-center">Voir la catégorie</a>
+					</div>
+				</div>
+			{% else %}
+				Aucune catégorie trouvée.
+			{% endfor %}
+		</div>
 	</div>
-
-    <a href="{{ path('app_index') }}">
-        Retour à l'accueil
-    </a>
+	<div class="container mb-5" style="height:60px">
+		<div class="row">
+			<div class="button col">
+				<a href="{{ path('category_new') }}">
+					Créer une catégorie
+				</a>
+			</div>
+			<div class="button col">
+				<a href="{{ path('category_index') }}">
+					Retour à la liste des catégories
+				</a>
+			</div>
+			<div class="button col">
+				<a href="{{ path('app_index') }}">
+					Retour à l'accueil
+				</a>
+			</div>
+		</div>
+	</div>
+    <div class="container mb-5">   </div>
 {% endblock %}

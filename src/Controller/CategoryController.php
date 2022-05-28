@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Category;
-use App\Entity\Program;
 use App\Repository\CategoryRepository;
 use App\Repository\ProgramRepository;
 use Symfony\Component\Routing\Annotation\Route;
@@ -51,8 +50,11 @@ class CategoryController extends AbstractController
     #[Route('/category/{categoryName}', methods: ['GET'], name: 'category_show')]
     public function show(string $categoryName, CategoryRepository $categoryRepository, ProgramRepository $programRepository): Response
     {
+        
         $category = $categoryRepository->findBy(['name' => $categoryName]);
-        $programs = $programRepository->findAll();
+        $programs = $programRepository->findBy([
+            'category' => $category,
+        ]);
 
         if (!$category) {
             throw $this->createNotFoundException(
@@ -64,6 +66,4 @@ class CategoryController extends AbstractController
             'programs' => $programs,
         ]);
     }
-
-   
 }

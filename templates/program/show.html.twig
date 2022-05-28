@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Série #{{ program.id }}{% endblock %}
+{% block title %}Série {{ program.title }}{% endblock %}
 
 {% block body %}
     <div class="media">
@@ -12,7 +12,19 @@
         </div>
     </div>
 
-    <a href="{{ path('program_index') }}">
-        Retour à la liste des programmes
+    <h2> Les saisons disponibles : </h2>
+    {% for season  in seasons %}
+<div>
+			<h2>Number : {{ season.number }}- Serie : {{ season.program.title }}</h2>
+			<p>{{ season.description }}</p>
+			<a href="{{ path('app_season_show', { id: season.id }) }}">Voir la saison</a>
+		</div>
+	{% else %}
+		Aucune saison trouvée.
+
+   
+    {% endfor %}
+     <a href="{{ path('program_index') }}">
+        Retour à la liste des série
     </a>
 {% endblock %}

@@ -22,7 +22,7 @@ class Episode
     #[ORM\Column(type: 'text')]
     private $synopsis;
 
-    #[ORM\ManyToOne(targetEntity: season::class)]
+    #[ORM\ManyToOne(targetEntity: Season::class)]
     #[ORM\JoinColumn(nullable: false)]
     private $season;
 
@@ -67,12 +67,12 @@ class Episode
         return $this;
     }
 
-    public function getSeason(): ?season
+    public function getSeason(): ?Season
     {
         return $this->season;
     }
 
-    public function setSeason(?season $season): self
+    public function setSeason(?Season $season): self
     {
         $this->season = $season;
 

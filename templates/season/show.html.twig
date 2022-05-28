@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Season
+{% endblock %}
+
+{% block body %}
+<h1>Season</h1>
+
+<table class="table">
+	<tbody>
+		<tr>
+			<th>Id</th>
+			<td>{{ season.id }}</td>
+		</tr>
+		<tr>
+			<th>Number</th>
+			<td>{{ season.number }}</td>
+		</tr>
+		<tr>
+			<th>Year</th>
+			<td>{{ season.year }}</td>
+		</tr>
+		<tr>
+			<th>Description</th>
+			<td>{{ season.description }}</td>
+		</tr>
+	</tbody>
+</table>
+
+<h1> test affichage des épisodes de la saison </h1>
+
+{% for episode in episodes %}
+
+	<h2>Episode
+		{{ episode.number }}</h2>
+
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>Id</th>
+				<td>{{ episode.id }}</td>
+			</tr>
+			<tr>
+				<th>Number</th>
+				<td>{{ episode.number }}</td>
+			</tr>
+			<tr>
+				<th>Title</th>
+				<td>{{ episode.title }}</td>
+			</tr>
+			<tr>
+				<th>Description</th>
+				<td>{{ episode.synopsis }}</td>
+			</tr>
+			<tr>
+				
+		</tbody>
+	</table>
+
+{% endfor %}
+
+<a href="{{ path('app_season_index') }}">back to list</a>
+
+<a href="{{ path('app_season_edit', {'id': season.id}) }}">edit</a>
+
+{{ include('season/_delete_form.html.twig') }}{% endblock %}

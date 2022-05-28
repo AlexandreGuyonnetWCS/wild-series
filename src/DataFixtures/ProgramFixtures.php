@@ -20,13 +20,13 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
         for($i = 1; $i < 50; $i++) {
         $program = new Program();
         $program->setPoster('https://picsum.photos/id/3/200/300');
-        $program->setTitle('Title' .$faker->realText($maxNbChars = 10, $indexSize = 2));
-        $program->setSynopsis($faker->realText($maxNbChars = 20, $indexSize = 2));
-        $program->setCategory($this->getReference('category_'. rand(0,4)));
+        $program->setTitle($faker->realText($maxNbChars = 20, $indexSize = 2));
+        $program->setSynopsis($faker->realText($maxNbChars = 40, $indexSize = 2));
+        $program->setCategory($this->getReference('category_' . $faker->randomElement(['Action', 'Animation', 'Comedy', 'Documentary', 'Drama', 'Horror', 'Romance', 'Sci-Fi', 'Thriller']) ));                                                                                                                                                         
         $this->addReference('program_'.$i , $program);
         $manager->persist($program);
         }
-        $manager->flush();
+        $manager->flush();                      
        
     }
 
